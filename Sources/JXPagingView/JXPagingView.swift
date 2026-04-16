@@ -96,7 +96,8 @@ open class JXPagingView: UIView {
     public var allowsCacheList: Bool = false
     public private(set) var currentScrollingListView: UIScrollView?
     internal var currentList: JXPagingViewListViewDelegate?
-    private var currentIndex: Int = 0
+    // liujiang代码 set pageing view's currentlist once child view appear
+    public var currentIndex: Int { validListDict.first { $1 === currentList }?.key ?? 0 }
     private weak var delegate: JXPagingViewDelegate?
     private var tableHeaderContainerView: UIView!
     private let cellIdentifier = "cell"
@@ -422,6 +423,10 @@ extension JXPagingView: JXPagingListContainerViewDataSource {
             if allowsCacheList, let listIdentifier = delegate.pagingView(self, listIdentifierAtIndex: index) {
                 listCache[listIdentifier] = list
             }
+            // liujiang代码 set pageing view's currentlist once child view appear
+            if index == listContainerView.defaultSelectedIndex {
+                self.currentList = validListDict[index]
+            }
         }
         return list!
     }
@@ -442,6 +447,8 @@ extension JXPagingView: JXPagingListContainerViewDelegate {
 
     public func listContainerView(_ listContainerView: JXPagingListContainerView, listDidAppearAt index: Int) {
         currentScrollingListView = validListDict[index]?.listScrollView()
+        // liujiang代码 set pageing view's currentlist once child view appear
+        self.currentList = validListDict[index]
         for listItem in validListDict.values {
             if listItem === validListDict[index] {
                 listItem.listScrollView().scrollsToTop = true

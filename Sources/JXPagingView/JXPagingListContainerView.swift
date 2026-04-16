@@ -130,6 +130,8 @@ open class JXPagingListContainerView: UIView {
     public var defaultSelectedIndex: Int = 0 {
         didSet {
             currentIndex = defaultSelectedIndex
+            // liujiang代码：commit -> avoid insert nullable subview on in listcontainer
+            initListIfNeeded(at: currentIndex)
         }
     }
     weak var delegate: JXPagingListContainerViewDelegate?

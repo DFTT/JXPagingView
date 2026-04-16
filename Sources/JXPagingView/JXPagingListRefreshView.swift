@@ -80,7 +80,8 @@ open class JXPagingListRefreshView: JXPagingView {
             } else {
                 //mainTableView的header刚好消失，固定mainTableView的位置，显示listScrollView的滚动条
                 setMainTableViewToMaxContentOffsetY()
-                currentScrollingListView.showsVerticalScrollIndicator = true;
+                // liuliang代码， 隐藏二级分类list的垂直滚动指示器
+//                currentScrollingListView.showsVerticalScrollIndicator = true;
             }
         }
         lastScrollingListViewContentOffsetY = currentScrollingListView.contentOffset.y;
