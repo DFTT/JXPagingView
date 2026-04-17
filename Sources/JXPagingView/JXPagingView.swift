@@ -95,7 +95,7 @@ open class JXPagingView: UIView {
     /// 当allowsCacheList为true时，请务必实现代理方法`func pagingView(_ pagingView: JXPagingView, listIdentifierAtIndex index: Int) -> String`
     public var allowsCacheList: Bool = false
     public private(set) var currentScrollingListView: UIScrollView?
-    internal var currentList: JXPagingViewListViewDelegate?
+    public var currentList: JXPagingViewListViewDelegate?
     // liujiang代码 set pageing view's currentlist once child view appear
     public var currentIndex: Int { validListDict.first { $1 === currentList }?.key ?? 0 }
     private weak var delegate: JXPagingViewDelegate?
